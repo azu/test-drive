@@ -68,4 +68,21 @@ describe('isPresent() matcher detects', function () {
         const element = container.querySelector('#svgTest');
         expect(element).to.be.present();
     });
+
+    it('element off of the page as absent', function () {
+        container.innerHTML = `
+            <div>
+                <div id="myElement" style="width: 500px; height: 500px; background-color: red"></div>
+            </div>
+        `;
+        const element = container.querySelector('#myElement') as HTMLElement;
+        expect(element).to.be.present();
+
+        element.style.transform = 'translateX(-550px)';
+        expect(element).to.be.absent();
+        element.style.transform = 'translateX(550px)';
+        expect(element).to.be.present();
+        element.style.transform = 'translateY(-1500px)';
+        expect(element).to.be.absent();
+    });
 });

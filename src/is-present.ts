@@ -3,7 +3,7 @@ import {isElement} from "./scope";
 function isPresent(element: any): boolean {
     if (isElement(element)) {
         const rects = Array.prototype.slice.call(element.getClientRects()) as ClientRect[];
-        return rects.some(rectangle => rectangle.width > 0 && rectangle.height > 0);
+        return rects.some(rectangle => rectangle.width > 0 && rectangle.height > 0) && !(rects[0].top < 0 || rects[0].bottom < 0 || rects[0].right < 0 || rects[0].left < 0);
     } else {
         return false;
     }
